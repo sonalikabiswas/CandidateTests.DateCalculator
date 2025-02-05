@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandidateTests.DateCalculator", "CandidateTests.DateCalculator\CandidateTests.DateCalculator.csproj", "{9C340191-7569-4F1B-B9B6-09DA151F6F5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandidateTests.DateCalculatorTests", "CandidateTests.DateCalculatorTests\CandidateTests.DateCalculatorTests.csproj", "{7D9C3ED1-FF76-4047-A113-D29D7E76808B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C340191-7569-4F1B-B9B6-09DA151F6F5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C340191-7569-4F1B-B9B6-09DA151F6F5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C340191-7569-4F1B-B9B6-09DA151F6F5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C340191-7569-4F1B-B9B6-09DA151F6F5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D9C3ED1-FF76-4047-A113-D29D7E76808B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D9C3ED1-FF76-4047-A113-D29D7E76808B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D9C3ED1-FF76-4047-A113-D29D7E76808B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D9C3ED1-FF76-4047-A113-D29D7E76808B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
