@@ -4,17 +4,16 @@ namespace CandidateTests.DateCalculator.Application;
 
 public class BusinessDayCalculator : IBusinessDayCalculator
 {
-    public int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate,
-        IList<SameDayHoliday> publicHolidays)
+    public int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IList<FixedDayInMonthHoliday> publicHolidays)
     {
-        int businessDays = 0;
-        DateTime currentDate = firstDate.AddDays(1);
-        DateTime[] sameDayHolidaysForPeriod = GetSameDayHolidaysForDate(firstDate, secondDate, publicHolidays);
+        var businessDays = 0;
+        var currentDate = firstDate.AddDays(1);
+        var holidays = GetAllHolidays(firstDate, secondDate, publicHolidays);
 
         while (currentDate.Date < secondDate.Date)
         {
             if (!currentDate.IsWeekend()
-                && !sameDayHolidaysForPeriod.Any(sameDayHoliday => sameDayHoliday == currentDate))
+                && holidays.All(sameDayHoliday => sameDayHoliday != currentDate))
             {
                 businessDays++;
             }
@@ -25,18 +24,17 @@ public class BusinessDayCalculator : IBusinessDayCalculator
         return businessDays;
     }
 
-    private static DateTime[] GetSameDayHolidaysForDate(DateTime firstDate, DateTime secondDate,
-        IList<SameDayHoliday> publicHolidays)
+    private List<DateTime> GetAllHolidays(DateTime firstDate, DateTime secondDate, IList<FixedDayInMonthHoliday> publicHolidays)
     {
         var sameDayHolidays = new List<DateTime>();
         for (var currentYear = firstDate.Year; currentYear <= secondDate.Year; currentYear++)
         {
-            foreach (var publicHoliday in publicHolidays)
+            foreach (var holiday in publicHolidays)
             {
-                sameDayHolidays.Add(publicHoliday.GetHolidayDate(currentYear));
+                sameDayHolidays.Add(holiday.GetHolidayDate(currentYear));
             }
         }
 
-        return sameDayHolidays.ToArray();
+        return sameDayHolidays;
     }
 }
