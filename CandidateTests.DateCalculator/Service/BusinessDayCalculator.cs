@@ -4,7 +4,7 @@ namespace CandidateTests.DateCalculator.Application;
 
 public class BusinessDayCalculator : IBusinessDayCalculator
 {
-    public int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IList<FixedDayInMonthHoliday> publicHolidays)
+    public int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IList<IPublicHoliday> publicHolidays)
     {
         var businessDays = 0;
         var currentDate = firstDate.AddDays(1);
@@ -13,7 +13,7 @@ public class BusinessDayCalculator : IBusinessDayCalculator
         while (currentDate.Date < secondDate.Date)
         {
             if (!currentDate.IsWeekend()
-                && holidays.All(sameDayHoliday => sameDayHoliday != currentDate))
+                && holidays.All(holiday => holiday != currentDate))
             {
                 businessDays++;
             }
@@ -24,17 +24,17 @@ public class BusinessDayCalculator : IBusinessDayCalculator
         return businessDays;
     }
 
-    private List<DateTime> GetAllHolidays(DateTime firstDate, DateTime secondDate, IList<FixedDayInMonthHoliday> publicHolidays)
+    private List<DateTime> GetAllHolidays(DateTime firstDate, DateTime secondDate, IList<IPublicHoliday> publicHolidays)
     {
-        var sameDayHolidays = new List<DateTime>();
+        var holidays = new List<DateTime>();
         for (var currentYear = firstDate.Year; currentYear <= secondDate.Year; currentYear++)
         {
             foreach (var holiday in publicHolidays)
             {
-                sameDayHolidays.Add(holiday.GetHolidayDate(currentYear));
+                holidays.Add(holiday.GetHolidayDate(currentYear));
             }
         }
 
-        return sameDayHolidays;
+        return holidays;
     }
 }

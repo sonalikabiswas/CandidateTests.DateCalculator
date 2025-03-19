@@ -20,7 +20,7 @@ public class BusinessDayCalculatorTests
         var expectedResult = 0;
         var startDate = new DateTime(2025, 2, 3); // Monday
         var endDate = new DateTime(2025, 2, 4); // Tuesday
-        var holidays = new List<FixedDayInMonthHoliday>();
+        var holidays = new List<IPublicHoliday>();
 
         // Act
         var result = _calculator.BusinessDaysBetweenTwoDates(startDate, endDate, holidays);
@@ -36,7 +36,7 @@ public class BusinessDayCalculatorTests
         var expectedResult = 1;
         var startDate = new DateTime(2025, 2, 3); // Monday
         var endDate = new DateTime(2025, 2, 5); // Wednesday
-        var holidays = new List<FixedDayInMonthHoliday>();
+        var holidays = new List<IPublicHoliday>();
 
         // Act
         var result = _calculator.BusinessDaysBetweenTwoDates(startDate, endDate, holidays);
@@ -52,7 +52,7 @@ public class BusinessDayCalculatorTests
         var expectedResult = 4;
         var startDate = new DateTime(2025, 2, 3); // Monday
         var endDate = new DateTime(2025, 2, 10); // Monday
-        var holidays = new List<FixedDayInMonthHoliday>();
+        var holidays = new List<IPublicHoliday>();
 
         // Act
         var result = _calculator.BusinessDaysBetweenTwoDates(startDate, endDate, holidays);
@@ -68,7 +68,7 @@ public class BusinessDayCalculatorTests
         var expectedResult = 0;
         var startDate = new DateTime(2025, 2, 3); // Monday
         var endDate = new DateTime(2025, 2, 5); // Wednesday
-        var holidays = new List<FixedDayInMonthHoliday> { new() { HolidayName = "Test Holiday", Month = Month.February, Day = 4 } };
+        var holidays = new List<IPublicHoliday> { new FixedDayInMonthHoliday { HolidayName = "Test Holiday", Month = Month.February, Day = 4 } };
 
         // Act
         var result = _calculator.BusinessDaysBetweenTwoDates(startDate, endDate, holidays);
@@ -84,7 +84,7 @@ public class BusinessDayCalculatorTests
         var expectedResult = 3;
         var startDate = new DateTime(2025, 2, 3);
         var endDate = new DateTime(2025, 2, 10);
-        var holidays = new List<FixedDayInMonthHoliday> { new() { HolidayName = "Test Holiday", Month = Month.February, Day = 4 } };
+        var holidays = new List<IPublicHoliday> { new FixedDayInMonthHoliday { HolidayName = "Test Holiday", Month = Month.February, Day = 4 } };
 
         // Act
         var result = _calculator.BusinessDaysBetweenTwoDates(startDate, endDate, holidays);
@@ -100,10 +100,10 @@ public class BusinessDayCalculatorTests
         var expectedResult = 21;
         var startDate = new DateTime(2024, 1, 1);
         var endDate = new DateTime(2024, 1, 31);
-        var holidays = new List<FixedDayInMonthHoliday>
+        var holidays = new List<IPublicHoliday>
         {
-            new() { HolidayName = "New year's eve", Month = Month.January, Day = 1 },
-            new() { HolidayName = "Christmas", Month = Month.December, Day = 25 },
+            new FixedDayInMonthHoliday { HolidayName = "New year's eve", Month = Month.January, Day = 1 },
+            new FixedDayInMonthHoliday { HolidayName = "Christmas", Month = Month.December, Day = 25 },
         };
 
         // Act
@@ -128,7 +128,7 @@ public class BusinessDayCalculatorTests
         int expectedDays)
     {
         // Act
-        var result = _calculator.BusinessDaysBetweenTwoDates(firstDate, secondDate, new List<FixedDayInMonthHoliday>());
+        var result = _calculator.BusinessDaysBetweenTwoDates(firstDate, secondDate, new List<IPublicHoliday>());
 
         // Assert
         result.Should().Be(expectedDays);
@@ -148,11 +148,11 @@ public class BusinessDayCalculatorTests
         DateTime secondDate, int expectedDays)
     {
         // Arrange
-        var holidays = new List<FixedDayInMonthHoliday>
+        var holidays = new List<IPublicHoliday>
         {
-            new() { HolidayName = "Christmas", Month = Month.December, Day = 25 },
-            new() { HolidayName = "Boxing Day", Month = Month.December, Day = 26 },
-            new() { HolidayName = "New Years", Month = Month.January, Day = 1 }
+            new FixedDayInMonthHoliday { HolidayName = "Christmas", Month = Month.December, Day = 25 },
+            new FixedDayInMonthHoliday { HolidayName = "Boxing Day", Month = Month.December, Day = 26 },
+            new FixedDayInMonthHoliday { HolidayName = "New Years", Month = Month.January, Day = 1 }
         };
 
         // Act

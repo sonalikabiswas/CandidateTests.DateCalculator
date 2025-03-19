@@ -4,5 +4,5 @@ namespace CandidateTests.DateCalculator.Application;
 
 public interface IBusinessDayCalculator
 {
-    int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IList<FixedDayInMonthHoliday> publicHolidays);
+    int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IList<IPublicHoliday> publicHolidays);
 }
