@@ -1,6 +1,6 @@
-using CandidateTests.DateCalculator.Domain;
+using CandidateTests.DateCalculator.Models;
 
-namespace CandidateTests.DateCalculator.Application;
+namespace CandidateTests.DateCalculator;
 
 public interface IBusinessDayCalculator
 {

@@ -1,8 +1,8 @@
-﻿namespace CandidateTests.DateCalculator.Domain;
+﻿namespace CandidateTests.DateCalculator.Models;
 
 public class FixedDayInMonthHoliday : IPublicHoliday
 {
-    public string HolidayName { get; set; }
+    public string? HolidayName { get; set; }
     
     public int Day { get; init; }
 

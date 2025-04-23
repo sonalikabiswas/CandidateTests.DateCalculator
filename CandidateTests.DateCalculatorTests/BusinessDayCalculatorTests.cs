@@ -1,5 +1,5 @@
-﻿using CandidateTests.DateCalculator.Application;
-using CandidateTests.DateCalculator.Domain;
+﻿using CandidateTests.DateCalculator;
+using CandidateTests.DateCalculator.Models;
 using FluentAssertions;
 
 namespace CandidateTests.DateCalculatorTests;

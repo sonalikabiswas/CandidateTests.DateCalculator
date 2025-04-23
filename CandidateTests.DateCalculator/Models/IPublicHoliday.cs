@@ -1,4 +1,4 @@
-namespace CandidateTests.DateCalculator.Domain;
+namespace CandidateTests.DateCalculator.Models;
 
 public interface IPublicHoliday
 {
