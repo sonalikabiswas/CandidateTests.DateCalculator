@@ -47,5 +47,21 @@ namespace CandidateTests.DateCalculatorTests
             Assert.Equal(expectedResult, result);
 
         }
+
+
+        [Fact]
+        public void SubstituteBusinessDateCalculator_ShouldThrowException_WhenDayandMonthNotSet()
+        {
+            //Arrange
+            int expectedResult = 5;
+            DateTime StartDate = new DateTime(2025, 10, 20);
+            DateTime EndDate = new DateTime(2025, 10, 28);
+
+            var holidays = new List<IPublicHoliday> { new SubstituteDayInMonthHoliday { HolidayName = "Diwali" } };
+
+            //Act and Assert
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => _businessDayCalculator.BusinessDaysBetweenTwoDates(StartDate, EndDate, holidays));
+
+        }
     }
 }

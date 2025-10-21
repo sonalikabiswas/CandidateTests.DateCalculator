@@ -1,40 +1,60 @@
-using CandidateTests.DateCalculator.Models;
+﻿using CandidateTests.DateCalculator.Models;
+using NLog;
 
 namespace CandidateTests.DateCalculator;
 
 public class BusinessDayCalculator : IBusinessDayCalculator
 {
+
+    private static readonly Logger _log = LogManager.GetCurrentClassLogger();
     public int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IList<IPublicHoliday> publicHolidays)
     {
-        var businessDays = 0;
-        var currentDate = firstDate.AddDays(1);
-        var holidays = GetAllHolidays(firstDate, secondDate, publicHolidays);
-
-        while (currentDate.Date < secondDate.Date)
+        try
         {
-            if (!currentDate.IsWeekend()
-                && holidays.All(holiday => holiday != currentDate))
+            var businessDays = 0;
+            var currentDate = firstDate.AddDays(1);
+            var holidays = GetAllHolidays(firstDate, secondDate, publicHolidays);
+
+            while (currentDate.Date < secondDate.Date)
             {
-                businessDays++;
+                if (!currentDate.IsWeekend()
+                    && holidays.All(holiday => holiday != currentDate))
+                {
+                    businessDays++;
+                }
+
+                currentDate = currentDate.AddDays(1);
             }
 
-            currentDate = currentDate.AddDays(1);
+            return businessDays;
         }
-
-        return businessDays;
+        catch (Exception ex)
+        {
+            _log.Error(ex, "Error calculating buisness days , Exception : " + ex.Message + " Inner Exception " + ex.InnerException);
+            throw;
+        }
     }
 
     private List<DateTime> GetAllHolidays(DateTime firstDate, DateTime secondDate, IList<IPublicHoliday> publicHolidays)
     {
-        var holidays = new List<DateTime>();
-        for (var currentYear = firstDate.Year; currentYear <= secondDate.Year; currentYear++)
+        try
         {
-            foreach (var holiday in publicHolidays)
+            var holidays = new List<DateTime>();
+            for (var currentYear = firstDate.Year; currentYear <= secondDate.Year; currentYear++)
             {
-                holidays.Add(holiday.GetHolidayDate(currentYear));
+                foreach (var holiday in publicHolidays)
+                {
+                    holidays.Add(holiday.GetHolidayDate(currentYear));
+                }
             }
-        }
 
-        return holidays;
+            return holidays;
+        }
+        catch (Exception ex)
+        {
+            _log.Error(ex, "Error creating holiday list , Exception : " + ex.Message + " Inner Exception " + ex.InnerException);
+            throw;
+
+        }
     }
 }
